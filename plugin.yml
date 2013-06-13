@@ -1,0 +1,15 @@
+name: EnderChestViewer
+version: 1.4.2
+author: D4rKDeagle
+main: me.darkdeagle.enderchestviewer.EnderChestViewer
+commands:
+  enderchestviewer:
+    description: This command allows you to see other players EnderChest Inventory.
+    aliases: [ecv]
+permissions:
+  enderchestviewer.viewothers:
+    default: op
+    description: This permission allows you to access /enderchestviewer command to access the Enderchest of someone else.
+  enderchestviewer.enderchestviewer:
+    default: op
+    description: This permission allows you to access /enderchestviewer command.
