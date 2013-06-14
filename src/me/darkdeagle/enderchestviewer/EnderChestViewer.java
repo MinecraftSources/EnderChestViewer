@@ -43,12 +43,12 @@ public class EnderChestViewer extends JavaPlugin implements Listener {
 		commandExecutor = new EnderChestViewerCommandExecutor(this, ChatColor.DARK_BLUE + "[" + pdfFile.getName() + "] " + ChatColor.WHITE);
 		this.getCommand("enderchestviewer").setExecutor(commandExecutor);
 		this.getServer().getPluginManager().registerEvents(this, this);
-		this.getLogger().info(" is now enabled!");
+		this.getLogger().info("is now enabled!");
 	}
 	
 	@Override
 	public void onDisable() {
-		this.getLogger().info(" is now disabled!");
+		this.getLogger().info("is now disabled!");
 	}
 	
 	@EventHandler
