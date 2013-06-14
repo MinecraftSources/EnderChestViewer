@@ -1,5 +1,5 @@
 name: EnderChestViewer
-version: 1.4.2
+version: 1.4.3
 author: D4rKDeagle
 main: me.darkdeagle.enderchestviewer.EnderChestViewer
 commands:
@@ -13,3 +13,19 @@ permissions:
   enderchestviewer.enderchestviewer:
     default: op
     description: This permission allows you to access /enderchestviewer command.
+  enderchestviewer.block.*:
+    default: op
+    description: This permission allows you to interact in all the different ways with ender chests.
+    children:
+      enderchestviewer.block.craft:
+        default: true
+        description: Allows you to craft ender chests.
+      enderchestviewer.block.place:
+        default: true
+        description: Allows you to place ender chests.
+      enderchestviewer.block.use:
+        default: true
+        description: Allows you to use (open) ender chests.
+      enderchestviewer.block.break:
+        default: true
+        description: Allows you to break ender chests.
