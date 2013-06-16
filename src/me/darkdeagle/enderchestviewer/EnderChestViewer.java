@@ -25,20 +25,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import uk.co.tggl.pluckerpluck.multiinv.api.MIAPIPlayer;
+
 
 public class EnderChestViewer extends JavaPlugin {
 
 	private CommandExecutor commandExecutor;
 	private Listener eventListener;
 	
-	public HashMap<String, Player> viewList = new HashMap<String, Player>();
+	public String prefix = ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE;
+	
+	public HashMap<String, Player> viewListGlobal = new HashMap<String, Player>();
+	public HashMap<String, MIAPIPlayer> viewListMultiinv = new HashMap<String, MIAPIPlayer>();
 	
 	@Override
 	public void onEnable() {
-		this.commandExecutor = new EnderChestViewerCommandExecutor(this, ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE);
+		this.commandExecutor = new EnderChestViewerCommandExecutor(this);
 		this.getCommand("enderchestviewer").setExecutor(commandExecutor);
 		
-		this.eventListener = new EnderChestViewerEventListener(this, ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE);
+		this.eventListener = new EnderChestViewerEventListener(this);
 		this.getServer().getPluginManager().registerEvents(eventListener, this);
 		
 		this.getLogger().info("is now enabled!");
