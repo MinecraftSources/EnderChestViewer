@@ -167,6 +167,7 @@ public class MultiInvHandler {
             
             //Create a ItemStack[] with the new container items
             ItemStack[] items = event.getInventory().getContents();
+            //Create a MIEnderchestInventory with the items
             MIEnderchestInventory ec = new MIEnderchestInventory(items);
             
             //Set the new ender chest contents
