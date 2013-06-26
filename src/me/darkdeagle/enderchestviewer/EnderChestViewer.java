@@ -33,13 +33,15 @@ public class EnderChestViewer extends JavaPlugin {
 	private CommandExecutor commandExecutor;
 	private Listener eventListener;
 	
-	public String prefix = ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE;
+	public String prefix;
 	
 	public HashMap<String, Player> viewListGlobal = new HashMap<String, Player>();
 	public HashMap<String, MIAPIPlayer> viewListMultiinv = new HashMap<String, MIAPIPlayer>();
 	
 	@Override
 	public void onEnable() {
+	    prefix = ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE;
+	    
 		this.commandExecutor = new EnderChestViewerCommandExecutor(this);
 		this.getCommand("enderchestviewer").setExecutor(commandExecutor);
 		
