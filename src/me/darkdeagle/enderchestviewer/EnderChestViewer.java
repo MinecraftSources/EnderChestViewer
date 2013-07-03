@@ -25,8 +25,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import uk.co.tggl.pluckerpluck.multiinv.api.MIAPIPlayer;
-
 
 public class EnderChestViewer extends JavaPlugin {
 
@@ -36,7 +34,6 @@ public class EnderChestViewer extends JavaPlugin {
 	public String prefix;
 	
 	public HashMap<String, Player> viewListGlobal = new HashMap<String, Player>();
-	public HashMap<String, MIAPIPlayer> viewListMultiinv = new HashMap<String, MIAPIPlayer>();
 	
 	@Override
 	public void onEnable() {
