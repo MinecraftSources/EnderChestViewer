@@ -17,7 +17,6 @@
 
 package me.darkdeagle.enderchestviewer;
 
-import me.darkdeagle.enderchestviewer.handlers.MultiInvHandler;
 import me.darkdeagle.enderchestviewer.handlers.VanillaHandler;
 
 import org.bukkit.ChatColor;
@@ -25,8 +24,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import uk.co.tggl.pluckerpluck.multiinv.MultiInv;
 
 public class EnderChestViewerCommandExecutor implements CommandExecutor {
 
@@ -57,19 +54,12 @@ public class EnderChestViewerCommandExecutor implements CommandExecutor {
 				return false;
 			}
 			
-			if(plugin.getServer().getPluginManager().getPlugin("MultiInv") != null) {
-	            MultiInv multiInv = (MultiInv) plugin.getServer().getPluginManager().getPlugin("MultiInv");
-	            
-	            if(args.length != 3) {
-	                player.sendMessage(prefix + "Usage: /" + commandLabel + " <target> <world name (Not required if target is online)> <SURVIVAL/CREATIVE (Not Required if target is online)>");
-	                return false;
-	            }
-	            
-	            return MultiInvHandler.openEnderChest(plugin, player, args, multiInv);
+			if(args.length > 1) {
+	            player.sendMessage(prefix + ChatColor.DARK_RED + "Usage: " + ChatColor.WHITE + "/" + commandLabel + " <target>");
+	            return false;
 	        }
-			else {
-			    return VanillaHandler.openEnderChest(plugin, player, args);
-			}
+			    
+			return VanillaHandler.openEnderChest(plugin, player, args);
 		}
         return false;
 	}

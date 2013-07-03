@@ -17,7 +17,6 @@
 
 package me.darkdeagle.enderchestviewer;
 
-import me.darkdeagle.enderchestviewer.handlers.MultiInvHandler;
 import me.darkdeagle.enderchestviewer.handlers.VanillaHandler;
 import net.minecraft.server.v1_5_R3.Block;
 import net.minecraft.server.v1_5_R3.EntityHuman;
@@ -33,8 +32,6 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.ItemStack;
-
-import uk.co.tggl.pluckerpluck.multiinv.MultiInv;
 
 public class EnderChestViewerEventListener implements Listener {
     
@@ -87,16 +84,14 @@ public class EnderChestViewerEventListener implements Listener {
         }
     }
     
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onInventoryClose(InventoryCloseEvent event) {
         
         if(plugin.getServer().getPluginManager().getPlugin("MultiInv") != null) {
-            MultiInv multiInv = (MultiInv) plugin.getServer().getPluginManager().getPlugin("MultiInv");
-            
-            MultiInvHandler.closeEnderChest(plugin, event, multiInv);
+            VanillaHandler.closeEnderChest(plugin, event, false);
+            return;
         }
-        else {
-            VanillaHandler.closeEnderChest(plugin, event);
-        }
+        
+        VanillaHandler.closeEnderChest(plugin, event, true);
     }
 }

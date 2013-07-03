@@ -76,7 +76,7 @@ public class VanillaHandler {
                 player.openInventory(onlineTarget.getEnderChest());
                 plugin.viewListGlobal.put(player.getName(), onlineTarget);
                 player.sendMessage(prefix + "The Ender Chest of " + onlineTarget.getDisplayName() + " is now open for you.");
-                player.playSound(player.getLocation(), Sound.CHEST_OPEN, 5.0f, 1.0f);
+                player.playSound(player.getLocation(), Sound.CHEST_OPEN, 1.0f, 1.0f);
                 return true;
             } else {
                 //Has the target has never played before or did the player type something wrong?
@@ -103,7 +103,7 @@ public class VanillaHandler {
                     
                     player.sendMessage(prefix + "The Ender Chest of " + target.getDisplayName() + " is now open for you.");
                     
-                    player.playSound(player.getLocation(), Sound.CHEST_OPEN, 5.0f, 1.0f);
+                    player.playSound(player.getLocation(), Sound.CHEST_OPEN, 1.0f, 1.0f);
                     
                     return true;
                 }
@@ -112,7 +112,7 @@ public class VanillaHandler {
         return false;
     }
     
-    public static void closeEnderChest(EnderChestViewer plugin, InventoryCloseEvent event) {
+    public static void closeEnderChest(EnderChestViewer plugin, InventoryCloseEvent event, boolean save) {
         Player player = (Player) event.getPlayer();
         
         //Now checking of the player is contained on the viewers list
@@ -123,22 +123,25 @@ public class VanillaHandler {
             
             //If it's safe to save the data, lets save it!
             
-            //Create a ItemStack[] with the new container items
-            ItemStack[] items = event.getInventory().getContents();
+            //MultiInv support: Do NOT save the data, because MultiInv saves it
+            if(save) {
+                //Create a ItemStack[] with the new container items
+                ItemStack[] items = event.getInventory().getContents();
             
-            //Set the new ender chest contents
-            target.getEnderChest().clear();
-            target.getEnderChest().setContents(items);
+                //Set the new ender chest contents
+                target.getEnderChest().clear();
+                target.getEnderChest().setContents(items);
             
-            //Save the target data
-            //If the player is the target, or the target is now online, don't save the data, because bukkit handles it
-            if(!((player == target) || target.isOnline())) target.saveData();
+                //Save the target data
+                //If the player is the target, or the target is now online, don't save the data, because bukkit handles it
+                if(!((player == target) || target.isOnline())) target.saveData();
+            }
             
             //Remove the player from the viewers list
             plugin.viewListGlobal.remove(player.getName());
             
             //Play the sound of the Ender Chest closing :)
-            player.playSound(player.getLocation(), Sound.CHEST_CLOSE, 5.0f, 1.0f);
+            player.playSound(player.getLocation(), Sound.CHEST_CLOSE, 1.0f, 1.0f);
         }
     }
 }
