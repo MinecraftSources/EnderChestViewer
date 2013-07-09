@@ -18,8 +18,7 @@
 package me.darkdeagle.enderchestviewer;
 
 import me.darkdeagle.enderchestviewer.handlers.VanillaHandler;
-import net.minecraft.server.v1_5_R3.Block;
-import net.minecraft.server.v1_5_R3.EntityHuman;
+import net.minecraft.server.v1_6_R2.EntityHuman;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -56,7 +55,7 @@ public class EnderChestViewerEventListener implements Listener {
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         
-        if(event.getBlockPlaced() == Block.ENDER_CHEST && !player.hasPermission("enderchestviewer.block.place")) {
+        if(event.getBlockPlaced().getType() == Material.ENDER_CHEST && !player.hasPermission("enderchestviewer.block.place")) {
             player.sendMessage(prefix + "You don't have permission to place Ender Chests.");
             event.setCancelled(true);
         }
@@ -78,7 +77,7 @@ public class EnderChestViewerEventListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
         
-        if(event.getBlock() == Block.ENDER_CHEST && !player.hasPermission("enderchestviewer.block.break")) {
+        if(event.getBlock().getType() == Material.ENDER_CHEST && !player.hasPermission("enderchestviewer.block.break")) {
             player.sendMessage(prefix + "You don't have permission to break Ender Chests.");
             event.setCancelled(true);
         }
