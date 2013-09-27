@@ -18,7 +18,6 @@
 package me.darkdeagle.enderchestviewer;
 
 import me.darkdeagle.enderchestviewer.handlers.VanillaHandler;
-import net.minecraft.server.v1_6_R2.EntityHuman;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -63,7 +62,7 @@ public class EnderChestViewerEventListener implements Listener {
     
     @EventHandler
     public void onPlayerInteract(InventoryOpenEvent event) {
-        if(!(event.getPlayer() instanceof EntityHuman)) return;
+        if(!(event.getPlayer() instanceof Player)) return;
         
         Player player = plugin.getServer().getPlayer(event.getPlayer().getName());
         

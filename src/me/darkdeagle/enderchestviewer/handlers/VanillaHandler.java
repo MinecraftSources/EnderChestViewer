@@ -18,10 +18,10 @@
 package me.darkdeagle.enderchestviewer.handlers;
 
 import me.darkdeagle.enderchestviewer.EnderChestViewer;
-import net.minecraft.server.v1_6_R2.DedicatedServer;
-import net.minecraft.server.v1_6_R2.EntityPlayer;
-import net.minecraft.server.v1_6_R2.MinecraftServer;
-import net.minecraft.server.v1_6_R2.PlayerInteractManager;
+import net.minecraft.server.v1_6_R3.DedicatedServer;
+import net.minecraft.server.v1_6_R3.EntityPlayer;
+import net.minecraft.server.v1_6_R3.MinecraftServer;
+import net.minecraft.server.v1_6_R3.PlayerInteractManager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;

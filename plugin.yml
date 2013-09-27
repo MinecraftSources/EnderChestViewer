@@ -1,5 +1,5 @@
 name: EnderChestViewer
-version: 1.4.6
+version: 1.4.8
 author: D4rKDeagle
 main: me.darkdeagle.enderchestviewer.EnderChestViewer
 commands:

@@ -17,6 +17,7 @@
 
 package me.darkdeagle.enderchestviewer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.bukkit.ChatColor;
@@ -24,32 +25,41 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-
+import org.mcstats.Metrics;
 
 public class EnderChestViewer extends JavaPlugin {
 
-	private CommandExecutor commandExecutor;
-	private Listener eventListener;
-	
-	public String prefix;
-	
-	public HashMap<String, Player> viewListGlobal = new HashMap<String, Player>();
-	
-	@Override
-	public void onEnable() {
-	    prefix = ChatColor.DARK_BLUE + "[" + this.getDescription().getName() + "] " + ChatColor.WHITE;
-	    
-		this.commandExecutor = new EnderChestViewerCommandExecutor(this);
-		this.getCommand("enderchestviewer").setExecutor(commandExecutor);
-		
-		this.eventListener = new EnderChestViewerEventListener(this);
-		this.getServer().getPluginManager().registerEvents(eventListener, this);
-		
-		this.getLogger().info("is now enabled!");
-	}
-	
-	@Override
-	public void onDisable() {
-		this.getLogger().info("is now disabled!");
-	}
+    private CommandExecutor commandExecutor;
+    private Listener eventListener;
+
+    public String prefix;
+
+    public HashMap<String, Player> viewListGlobal = new HashMap<String, Player>();
+
+    @Override
+    public void onEnable() {
+        prefix = ChatColor.DARK_BLUE + "[" + this.getDescription().getName()
+                + "] " + ChatColor.WHITE;
+
+        this.commandExecutor = new EnderChestViewerCommandExecutor(this);
+        this.getCommand("enderchestviewer").setExecutor(commandExecutor);
+
+        this.eventListener = new EnderChestViewerEventListener(this);
+        this.getServer().getPluginManager().registerEvents(eventListener, this);
+
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch(IOException e) {
+            e.printStackTrace();
+            this.getLogger().info("Failed to submit Metrics stats");
+        }
+
+        this.getLogger().info("is now enabled!");
+    }
+
+    @Override
+    public void onDisable() {
+        this.getLogger().info("is now disabled!");
+    }
 }
