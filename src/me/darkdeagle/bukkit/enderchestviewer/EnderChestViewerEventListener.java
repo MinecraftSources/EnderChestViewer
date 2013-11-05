@@ -15,9 +15,9 @@
     along with EnderChestViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.darkdeagle.enderchestviewer;
+package me.darkdeagle.bukkit.enderchestviewer;
 
-import me.darkdeagle.enderchestviewer.handlers.VanillaHandler;
+import me.darkdeagle.bukkit.enderchestviewer.handlers.VanillaHandler;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

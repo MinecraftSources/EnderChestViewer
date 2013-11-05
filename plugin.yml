@@ -1,7 +1,7 @@
 name: EnderChestViewer
-version: 1.4.8
+version: 1.4.9
 author: D4rKDeagle
-main: me.darkdeagle.enderchestviewer.EnderChestViewer
+main: me.darkdeagle.bukkit.enderchestviewer.EnderChestViewer
 commands:
   enderchestviewer:
     description: This command allows you to see other players EnderChest Inventory.

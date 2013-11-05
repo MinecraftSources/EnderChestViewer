@@ -15,7 +15,7 @@
     along with EnderChestViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.darkdeagle.enderchestviewer;
+package me.darkdeagle.bukkit.enderchestviewer;
 
 import java.io.IOException;
 import java.util.HashMap;

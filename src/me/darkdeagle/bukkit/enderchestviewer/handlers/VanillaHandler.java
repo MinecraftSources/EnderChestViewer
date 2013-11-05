@@ -15,9 +15,10 @@
     along with EnderChestViewer.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package me.darkdeagle.enderchestviewer.handlers;
+package me.darkdeagle.bukkit.enderchestviewer.handlers;
 
-import me.darkdeagle.enderchestviewer.EnderChestViewer;
+import me.darkdeagle.bukkit.enderchestviewer.EnderChestViewer;
+
 import net.minecraft.server.v1_6_R3.DedicatedServer;
 import net.minecraft.server.v1_6_R3.EntityPlayer;
 import net.minecraft.server.v1_6_R3.MinecraftServer;
