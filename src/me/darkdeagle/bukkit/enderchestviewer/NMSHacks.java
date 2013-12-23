@@ -34,7 +34,7 @@ public class NMSHacks {
             
             Method method_getBukkitEntity = class_EntityPlayer.getDeclaredMethod("getBukkitEntity");
             
-            return (Player) method_getBukkitEntity.invoke(entityPlayer);
+            return (Player) method_getBukkitEntity.invoke(entityPlayer);      
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             e.printStackTrace();
             return null;
@@ -79,10 +79,9 @@ public class NMSHacks {
         return craftbukkitPackage = Bukkit.getServer().getClass().getPackage().getName() + ".";
     }
     
-    @SuppressWarnings("unchecked")
-    public static <T> Class<T> getCraftbukkitClass(String className) {
+    public static Class<?> getCraftbukkitClass(String className) {
         try {
-            return (Class<T>) Class.forName(getCraftbukkitPackage() + className);
+            return Class.forName(getCraftbukkitPackage() + className);
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -97,10 +96,9 @@ public class NMSHacks {
         return nmsPackage = getCraftbukkitPackage().replace("org.bukkit.craftbukkit", "net.minecraft.server");
     }
     
-    @SuppressWarnings("unchecked")
-    public static <T> Class<T> getNMSClass(String className) {
+    public static Class<?> getNMSClass(String className) {
         try {
-            return (Class<T>) Class.forName(getNMSPackage() + className);
+            return Class.forName(getNMSPackage() + className);
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
             return null;
