@@ -17,13 +17,6 @@
 
 package me.darkdeagle.bukkit.enderchestviewer.handlers;
 
-import me.darkdeagle.bukkit.enderchestviewer.EnderChestViewer;
-
-import net.minecraft.server.v1_6_R3.DedicatedServer;
-import net.minecraft.server.v1_6_R3.EntityPlayer;
-import net.minecraft.server.v1_6_R3.MinecraftServer;
-import net.minecraft.server.v1_6_R3.PlayerInteractManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -32,6 +25,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import me.darkdeagle.bukkit.enderchestviewer.EnderChestViewer;
+import me.darkdeagle.bukkit.enderchestviewer.NMSHacks;
 
 public class VanillaHandler {
     
@@ -85,14 +81,9 @@ public class VanillaHandler {
                     player.sendMessage(prefix + "The player " + targetName + " hasn't played before. Maybe you typed something wrong.");
                     return false;
                 } else {
-                    //Get the MinecraftServer instance
-                    MinecraftServer minecraftServer = DedicatedServer.getServer();
+                    Player target = NMSHacks.getPlayerObjectOfOfflinePlayer(targetName);
                     
-                    //Create and load the target EntityPlayer
-                    EntityPlayer entityPlayer = new EntityPlayer(DedicatedServer.getServer(), minecraftServer.getWorldServer(0), targetName, new PlayerInteractManager(minecraftServer.getWorldServer(0)));
-                    entityPlayer.getBukkitEntity().loadData();
-                    
-                    Player target = entityPlayer.getBukkitEntity();
+                    target.loadData();
                     
                     ItemStack[] items = target.getEnderChest().getContents();
                     Inventory inventory = Bukkit.createInventory(player, InventoryType.ENDER_CHEST);
