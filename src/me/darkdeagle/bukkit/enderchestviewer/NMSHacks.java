@@ -12,32 +12,57 @@ public class NMSHacks {
     private static String craftbukkitPackage;
     private static String nmsPackage;
     
-    public static Player getPlayerObjectOfOfflinePlayer(String playerName) {
+    public static Player getPlayerObjectOfOfflinePlayer(String playerName, boolean useGameProfile) {
         try {
             Object minecraftServer = getMinecraftServerInstance();
             
             Class<?> class_EntityPlayer = getNMSClass("EntityPlayer");
-            Class<?> class_DedicatedServer = getNMSClass("DedicatedServer");
-            Class<?> class_WorldServer = getNMSClass("WorldServer");
-            Class<?> class_GameProfile = getNMSClass("GameProfile");
+            Class<?> class_MinecraftServer = getNMSClass("MinecraftServer");
+            Class<?> class_World = getNMSClass("World");
+            
+            Class<?> class_GameProfile = null;
+            if(useGameProfile) {
+                class_GameProfile = getNMSClass("GameProfile");
+            }
+            
             Class<?> class_PlayerInteractManager = getNMSClass("PlayerInteractManager");
             
-            Constructor<?> constructor_EntityPlayer = class_EntityPlayer.getDeclaredConstructor(class_DedicatedServer, class_WorldServer, class_GameProfile,
+            Constructor<?> constructor_EntityPlayer = class_EntityPlayer.getDeclaredConstructor(class_MinecraftServer, class_World, useGameProfile ? class_GameProfile : String.class,
                     class_PlayerInteractManager);
-            Constructor<?> constructor_GameProfile = class_GameProfile.getDeclaredConstructor(String.class, String.class);
-            Constructor<?> constructor_PlayerInteractManager = class_PlayerInteractManager.getDeclaredConstructor(class_WorldServer);
             
-            Object gameProfile = constructor_GameProfile.newInstance(null, playerName);
+            Constructor<?> constructor_GameProfile = null;
+            if(useGameProfile) {
+                constructor_GameProfile = class_GameProfile.getDeclaredConstructor(String.class, String.class);
+            }
+            
+            Constructor<?> constructor_PlayerInteractManager = class_PlayerInteractManager.getDeclaredConstructor(class_World);
+            
+            Object gameProfile = null;
+            if(useGameProfile) {
+                gameProfile = constructor_GameProfile.newInstance(null, playerName);
+            }
+            
             Object playerInteractManager = constructor_PlayerInteractManager.newInstance(getWorldServer0());
             
-            Object entityPlayer = constructor_EntityPlayer.newInstance(minecraftServer, getWorldServer0(), gameProfile, playerInteractManager);
+            Object entityPlayer = constructor_EntityPlayer.newInstance(minecraftServer, getWorldServer0(), useGameProfile ? gameProfile : playerName,
+                    playerInteractManager);
             
             Method method_getBukkitEntity = class_EntityPlayer.getDeclaredMethod("getBukkitEntity");
             
-            return (Player) method_getBukkitEntity.invoke(entityPlayer);      
-        } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            return (Player) method_getBukkitEntity.invoke(entityPlayer);
+        } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public static boolean isServerPost16() {
+        try {
+            Bukkit.getServer().getServerIcon();
+            return true;
+        } catch(Throwable t) {
+            return false;
         }
     }
     
@@ -50,7 +75,8 @@ public class NMSHacks {
         }
     }
     
-    private static Object reflectWorldServer0() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    private static Object reflectWorldServer0() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
+            SecurityException {
         return getMinecraftServerInstance().getClass().getDeclaredMethod("getWorldServer", int.class).invoke(getMinecraftServerInstance(), 0);
     }
     
@@ -66,9 +92,9 @@ public class NMSHacks {
     private static Object reflectMinecraftServerInstance() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
         Class<?> class_DedicatedServer = getNMSClass("DedicatedServer");
-        Method method_getServer = class_DedicatedServer.getDeclaredMethod("getServer");
+        Method method_getServer = class_DedicatedServer.getMethod("getServer"); //Use getMethod instead of getDeclaredMethod, because the getServer method is declared in MinecraftServer, not DedicatedServer
         
-        return method_getServer.invoke(class_DedicatedServer);
+        return method_getServer.invoke(null); //Forgot about this: reflection's javadocs say that if it is a static method, then parse null to the "obj" argument.
     }
     
     public static String getCraftbukkitPackage() {
@@ -103,5 +129,9 @@ public class NMSHacks {
             e.printStackTrace();
             return null;
         }
+    }
+    
+    public static String getModifiablePartOfPackageName() {
+        return Bukkit.getServer().getClass().getPackage().getName().replace("org.bukkit.craftbukkit.", "").replace(".CraftServer", "");
     }
 }

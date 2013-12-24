@@ -81,7 +81,7 @@ public class VanillaHandler {
                     player.sendMessage(prefix + "The player " + targetName + " hasn't played before. Maybe you typed something wrong.");
                     return false;
                 } else {
-                    Player target = NMSHacks.getPlayerObjectOfOfflinePlayer(targetName);
+                    Player target = NMSHacks.getPlayerObjectOfOfflinePlayer(targetName, NMSHacks.isServerPost16());
                     
                     target.loadData();
                     
