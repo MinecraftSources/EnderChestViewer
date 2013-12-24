@@ -77,7 +77,7 @@ public class NMSHacks {
     
     private static Object reflectWorldServer0() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
             SecurityException {
-        return getMinecraftServerInstance().getClass().getDeclaredMethod("getWorldServer", int.class).invoke(getMinecraftServerInstance(), 0);
+        return getMinecraftServerInstance().getClass().getMethod("getWorldServer", int.class).invoke(getMinecraftServerInstance(), 0); //Not a method inside DedicatedServer, use getMethod
     }
     
     public static Object getMinecraftServerInstance() {
