@@ -39,7 +39,7 @@ public class NMSHacks {
             
             Class<?> class_GameProfile = null;
             if(useGameProfile) {
-                class_GameProfile = getNMSClass("GameProfile");
+                class_GameProfile = getClass("GameProfile");
             }
             
             Class<?> class_PlayerInteractManager = getNMSClass("PlayerInteractManager");
@@ -142,6 +142,15 @@ public class NMSHacks {
     public static Class<?> getNMSClass(String className) {
         try {
             return Class.forName(getNMSPackage() + className);
+        } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    public static Class<?> getClass(String className) {
+        try {
+            return Class.forName(className);
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
             return null;
